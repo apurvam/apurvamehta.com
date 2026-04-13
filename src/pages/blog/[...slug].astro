@@ -1,0 +1,31 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import SectionBreak from '../../components/SectionBreak.astro';
+import EndMark from '../../components/EndMark.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<Base title={`${post.data.title} — Apurva Mehta`} description={post.data.description} ogImage={`/og/${post.id}.png`}>
+  <header class="mb-12 pb-4 border-b border-border">
+    <a href="/" class="text-[1.4rem] text-ink-dark !bg-none ![text-shadow:none] hover:text-muted">&larr; Apurva Mehta</a>
+  </header>
+  <article class="post">
+    <h1 class="text-[2.6rem] font-normal leading-[1.1] text-ink-dark mt-0 mb-6">{post.data.title}</h1>
+    <time class="block text-muted text-[15px] mb-8" datetime={post.data.date.toISOString()}>
+      {post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' })}
+    </time>
+    <Content components={{ hr: SectionBreak }} />
+    <EndMark slug={post.id} />
+  </article>
+</Base>

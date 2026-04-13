@@ -1,14 +1,3 @@
 {
-  "compilerOptions": {
-    "module": "NodeNext",
-    "target": "ESNext",
-    "lib": ["ESNext", "DOM"],
-    "moduleResolution": "NodeNext",
-    "outDir": "./dist/scripts",
-    "skipLibCheck": true
-  },
-  "exclude": ["node_modules", "_site"],
-  "include": [
-    "src/_includes/scripts/**/*.ts"
-  ]
+  "extends": "astro/tsconfigs/strict"
 }
