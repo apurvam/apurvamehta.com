@@ -124,15 +124,40 @@ export async function generateOgImage(options: {
     },
   );
 
-  let base = sharp(Buffer.from(svg));
+  const W = 1200;
+  const H = 630;
+
+  // Radial gradient vignette — darker/warmer at edges, lighter center
+  const vignette = Buffer.alloc(W * H * 4);
+  const cx = W / 2;
+  const cy = H / 2;
+  const maxDist = Math.sqrt(cx * cx + cy * cy);
+  for (let y = 0; y < H; y++) {
+    for (let x = 0; x < W; x++) {
+      const dx = (x - cx) / cx;
+      const dy = (y - cy) / cy;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      const strength = Math.pow(dist, 1.8) * 0.12;
+      const off = (y * W + x) * 4;
+      vignette[off] = 180;     // warm cream tint
+      vignette[off + 1] = 170;
+      vignette[off + 2] = 140;
+      vignette[off + 3] = Math.min(255, Math.floor(strength * 255));
+    }
+  }
+  const vignetteLayer = await sharp(vignette, { raw: { width: W, height: H, channels: 4 } })
+    .png()
+    .toBuffer();
+
+  const layers: sharp.OverlayOptions[] = [
+    { input: vignetteLayer, blend: 'over' as const },
+  ];
 
   // Composite the end mark illustration in the top-right if slug is provided
   if (options.slug) {
     const markPng = await renderEndMarkPng(options.slug);
-    base = base.composite([
-      { input: markPng, top: 60, left: 1200 - 128 - 60, blend: 'over' },
-    ]);
+    layers.push({ input: markPng, top: 60, left: W - 128 - 60, blend: 'over' as const });
   }
 
-  return await base.png().toBuffer();
+  return await sharp(Buffer.from(svg)).composite(layers).png().toBuffer();
 }
