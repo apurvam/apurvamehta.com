@@ -1,0 +1,12 @@
+---
+import { generateEndMark } from '../lib/endmark';
+
+interface Props {
+  slug: string;
+}
+
+const { slug } = Astro.props;
+const svg = generateEndMark(slug);
+---
+
+<div class="end-mark" set:html={svg} />
