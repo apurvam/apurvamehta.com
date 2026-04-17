@@ -5,7 +5,7 @@ interface Props {
   ogImage?: string;
 }
 
-const { title, description = 'Building OpenData', ogImage = '/og-home.png' } = Astro.props;
+const { title, description = 'Personal Website of Apurva Mehta', ogImage = '/og-home.png' } = Astro.props;
 const ogUrl = new URL(ogImage, Astro.site).toString();
 
 import '../styles/global.css';
