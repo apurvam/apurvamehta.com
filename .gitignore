@@ -13,3 +13,6 @@ node_modules/
 .DS_Store
 .idea
 .vercel
+
+# local writing notes (kept alongside posts, not published)
+**/post-prompt.md
