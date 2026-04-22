@@ -1,0 +1,41 @@
+---
+title: "Why OpenData is MIT licensed"
+description: "Why we chose a permissive license for OpenData, and how we plan to build a sustainable business around open source databases."
+date: 2026-04-22
+draft: false
+---
+
+## OpenData and the license question
+
+When we launched [OpenData Timeseries](https://www.opendata.dev/blog/introducing-timeseries) last week, our choice of the MIT license prompted two reactions. One group was delighted that we picked a genuinely open license. Others were skeptical: why not AGPL? Aren't we worried about a hyperscaler taking the code and running it as a managed service?
+
+Our mission is to build the best object-store-native databases in every category and put them at the heart of every application stack. Adoption is going to be developer driven, organic, and bottoms-up. Truly open source licenses like the MIT license are designed to minimize the friction for developers, which is why they make the most sense for OpenData.
+
+At the same time, the skeptics are right to worry because the business risks of building around open source are real. I have two thoughts on this. First, the database business is tough for structural reasons, with the licensing model being the least of the problems. Second, I think we have a few foundational advantages with OpenData that compensate for the structural problems.
+
+## Database IP is hard to defend
+
+The usual argument for a more restrictive license is that it offers protection against your code being copied by a competitor and against a cloud provider running your software as a managed service.
+
+You want some protection because databases are expensive to build and maintain but, like all software, they are cheap to copy and distribute. But history has shown that copying is inevitable anyway. Restrictive licenses only slow the copying process marginally.
+
+My co-founder Almog explains the effect of this dynamic brilliantly in his essay [The Broken Economics of Databases](https://www.bitsxpages.com/p/the-broken-economics-of-databases). The summary of the argument is: the novel insight that differentiates a new database is usually what’s marketed the most aggressively. But once the insight is described in talks, papers, and docs, re-implementing it is relatively straightforward. So the database inevitably competes with comparable copies regardless of its license, reducing the market to a price war. AI coding agents have put afterburners on this dynamic.
+
+This is why very few database companies stay independent over the long run. The ones that have survived have diversified:
+
+- MongoDB remains independent, but grew from a single document database into multiple databases: full-text search, vector search, and stream processing. Elastic and Redis have followed a similar strategy of expanding into adjacent database categories.
+- And then you have companies who build databases but sell integrated platforms around those databases. Snowflake and Databricks invest heavily in building databases, but sell data platforms. A related pattern shows up in observability, where Datadog has built several homegrown databases, but sells an observability solution.
+
+In every case, database companies have moved beyond their original database to stay viable, or never sold databases directly to begin with. In this context, having a restrictive license buys time but doesn’t address the structural challenge of the database business.
+
+## Building a database business in 2026
+
+Of course, none of this answers the question of how to survive as a database business, open source or not. Fundamentally, the problem is that databases are usually bought as components of larger solutions. As we outlined above, durable database businesses usually do one of two things: sell a solution, or sell multiple databases efficiently.
+
+The OpenData architecture has advantages for both. The key distinguishing feature of OpenData is the choice to build multiple databases on the same object-store-based foundation. In fact, to date, our databases are [essentially](https://github.com/opendata-oss/opendata/blob/main/timeseries/rfcs/0001-tsdb-storage.md) [schemas](https://github.com/opendata-oss/opendata/blob/main/vector/rfcs/0001-storage.md) on top of [SlateDB](http://www.slatedb.io). Sharing a storage layer that delegates the hard problems of durability and elasticity to object storage means less work across the board: less code to write, less code to maintain, and simpler support and operations. 
+
+This is a major advantage for a multi-database strategy. It means we can operate profitably at lower margins than systems without this architecture, which gives us a fighting chance to compete without charging the premium prices that put hyperscalers' crosshairs on you. More speculatively, a shared storage foundation feels like a better starting point for the kind of integrated, cross-database solutions that Datadog or Snowflake have built on top of their own internal databases.
+
+This is also why a permissive license like MIT fits OpenData best. We're not trying to protect and monetize a single database's IP. Our differentiation will come from the shared architecture across multiple databases, and eventually the solutions we might build on top of them. MIT removes developer friction and helps accelerate the kind of adoption we need.
+
+The journey is going to be hard no matter what. Building one good database alone is hard enough. Building multiple is harder. And to top it off, the world of commercial software is in a state of major flux thanks to AI. We don't know what tomorrow will bring, but we're cautiously optimistic about our chances. Wish us luck!
