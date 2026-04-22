@@ -4,7 +4,7 @@ import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
-  site: 'https://apurvamehta.com',
+  site: 'https://www.apurvamehta.com',
   integrations: [mdx(), sitemap()],
   vite: {
     plugins: [tailwindcss()],

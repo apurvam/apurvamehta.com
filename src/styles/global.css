@@ -33,10 +33,9 @@ a:hover {
 /* Post typography */
 .post > p:first-of-type::first-letter {
   float: left;
-  font-size: 4em;
-  line-height: 0.85;
-  padding: 0 0.08em 0 0;
-  margin-top: 0.18em;
+  font-size: 4.8em;
+  line-height: 0.8;
+  padding: 0.05em 0.08em 0 0;
   font-weight: 600;
   color: #111;
 }
