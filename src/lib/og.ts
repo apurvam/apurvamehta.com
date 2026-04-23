@@ -22,11 +22,12 @@ async function loadFonts() {
 
 async function renderEndMarkPng(slug: string): Promise<Buffer> {
   const svgStr = generateEndMark(slug);
-  // Scale up for OG image (2x)
+  // Scale up for OG image (2x) and fade so it sits softly behind the title
   const scaled = svgStr
     .replace('width="64"', 'width="128"')
     .replace('height="80"', 'height="160"')
-    .replace('stroke-width="1.3"', 'stroke-width="1.8"');
+    .replace('stroke-width="1.3"', 'stroke-width="1.8"')
+    .replace('<svg ', '<svg opacity="0.15" ');
   return await sharp(Buffer.from(scaled)).png().toBuffer();
 }
 
@@ -80,7 +81,7 @@ export async function generateOgImage(options: {
                         props: {
                           style: {
                             fontSize: 28,
-                            color: '#999',
+                            color: '#555',
                             marginTop: 20,
                             fontStyle: 'italic' as const,
                           },
@@ -89,25 +90,6 @@ export async function generateOgImage(options: {
                       },
                     ]
                   : []),
-              ],
-            },
-          },
-          {
-            type: 'div',
-            props: {
-              style: {
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'flex-end',
-              },
-              children: [
-                {
-                  type: 'div',
-                  props: {
-                    style: { fontSize: 22, color: '#999' },
-                    children: 'apurvamehta.com',
-                  },
-                },
               ],
             },
           },
@@ -153,10 +135,12 @@ export async function generateOgImage(options: {
     { input: vignetteLayer, blend: 'over' as const },
   ];
 
-  // Composite the end mark illustration in the top-right if slug is provided
+  // Composite the faded end mark illustration tucked into the top-right corner
   if (options.slug) {
     const markPng = await renderEndMarkPng(options.slug);
-    layers.push({ input: markPng, top: 60, left: W - 128 - 60, blend: 'over' as const });
+    const markW = 128;
+    const inset = 10;
+    layers.push({ input: markPng, top: inset, left: W - markW - inset, blend: 'over' as const });
   }
 
   return await sharp(Buffer.from(svg)).composite(layers).png().toBuffer();

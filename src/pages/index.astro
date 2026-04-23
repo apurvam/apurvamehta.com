@@ -36,7 +36,7 @@ const posts = (await getCollection('blog'))
     <ul class="list-none p-0">
       {posts.map((post) => (
         <li class="mb-3 flex items-baseline gap-4">
-          <span class="shrink-0 w-[110px] text-muted text-[15px]">
+          <span class="shrink-0 w-[110px] text-[#777] text-[15px]">
             {post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' })}
           </span>
           <span class="flex-1 min-w-0">
