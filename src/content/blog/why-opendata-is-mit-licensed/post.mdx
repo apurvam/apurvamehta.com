@@ -28,7 +28,7 @@ In every case, database companies have moved beyond their original database to s
 
 ## Building a database business in 2026
 
-Of course, none of this answers the question of how to survive as a database business, open source or not. Fundamentally, the problem is that databases are usually bought as components of larger solutions. As we outlined above, durable database businesses usually do one of two things: sell a solution, or sell multiple databases efficiently.
+Of course, none of this answers the question of how to survive as a database business, open source or not. Fundamentally, the problem is that databases are usually bought as components of larger solutions. So, as we outlined above, durable database businesses usually do one of two things: sell a solution, or sell multiple databases efficiently.
 
 The OpenData architecture has advantages for both. The key distinguishing feature of OpenData is the choice to build multiple databases on the same object-store-based foundation. In fact, to date, our databases are [essentially](https://github.com/opendata-oss/opendata/blob/main/timeseries/rfcs/0001-tsdb-storage.md) [schemas](https://github.com/opendata-oss/opendata/blob/main/vector/rfcs/0001-storage.md) on top of [SlateDB](http://www.slatedb.io). Sharing a storage layer that delegates the hard problems of durability and elasticity to object storage means less work across the board: less code to write, less code to maintain, and simpler support and operations. 
 
