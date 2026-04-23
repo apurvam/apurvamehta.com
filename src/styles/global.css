@@ -61,6 +61,16 @@ a:hover {
   color: #111;
 }
 
+/* Firefox handles ::first-letter line-height differently: line-height < 1
+   does not collapse the glyph box the same way, so the cap floats below
+   the first line's ascender. Use a natural line-height there instead. */
+@supports (-moz-appearance: none) {
+  .post > p:first-of-type::first-letter {
+    line-height: 1;
+    margin-top: 0.08em;
+  }
+}
+
 .post p {
   margin-bottom: 1.2em;
   color: #2c2c2c;
