@@ -8,6 +8,7 @@ interface Props {
 const { title, description = 'Personal Website of Apurva Mehta', ogImage = '/og-home.png' } = Astro.props;
 const ogUrl = new URL(ogImage, Astro.site).toString();
 
+import { Font } from 'astro:assets';
 import '../styles/global.css';
 ---
 
@@ -30,9 +31,7 @@ import '../styles/global.css';
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="alternate" type="application/rss+xml" title="Apurva Mehta" href="/rss.xml" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+    <Font cssVariable="--font-crimson-pro" preload />
     <title>{title}</title>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-EYT8JSBV9M"></script>
     <script is:inline>

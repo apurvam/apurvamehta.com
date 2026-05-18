@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  --font-serif: "Crimson Pro", Palatino, "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  --font-serif: var(--font-crimson-pro);
   --color-cream: #fffff8;
   --color-ink: #2c2c2c;
   --color-ink-dark: #111;
